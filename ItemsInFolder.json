@@ -1,0 +1,27 @@
+
+  [
+  {
+    "nombre":"papa",
+    "cantidad":5, 
+    "precio":50,
+    "imagen": "https://tse2.mm.bing.net/th?id=OIP.ObjUmwz0mpzelrlpvESiWwHaFI&amp"
+  },
+  {
+    "nombre":"cebolla",
+    "cantidad":30, 
+    "precio":30,
+    "imagen":"https://tse3.mm.bing.net/th?id=OIP.VrnsTXihnf9eLOHVaj7zqgHaFF&amp"
+  },
+  {
+    "nombre":"manzana",
+    "cantidad":6, 
+    "precio":60,
+    "imagen":"https://tse4.mm.bing.net/th?id=OIP.YdBKMKhZk429atkjPqNh1AHaHa&amp"
+  },
+  {
+    "nombre":"pepino",
+    "cantidad":6, 
+    "precio":60,
+    "imagen":"https://tse1.mm.bing.net/th?id=OIP.L9BfZTjPLBbsAi6Ix-NX0QHaFB&amp"
+  }
+]

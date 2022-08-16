@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+
+}
+
+/*............NAV.........*/
+.flex__nav{
+    display: flex;
+    flex-direction: row;
+    background-color: #38e988;
+    
+}
+
+.flex__nav__hijo{
+    padding: 15px;
+    list-style: none;
+}
+
+/*............BODY.........*/
+.body{
+    background-color: #458181;
+
+}
+/*............MAIN.........*/
+.main{
+    margin: 3rem;
+    min-width: 230px;
+}
+
+/*............CARD.........*/
+
+.card{
+  
+    margin: 4rem;
+    max-width: 250px;
+}
+
+.seccion{
+    display: flex;
+    flex-direction: center;
+    justify-content: center;
+    justify-items: center;
+}
