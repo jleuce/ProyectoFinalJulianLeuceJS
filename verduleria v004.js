@@ -278,7 +278,7 @@ function AvisoTemporal(nombre, cantidad, color, mensaje) {
 }
 function cartelEnHTML(tipo, mensaje) {
   Swal.fire({
-    position: "top-end",
+    position: "center",
     icon: tipo,
     title: mensaje,
     showConfirmButton: false,
@@ -324,19 +324,19 @@ function representarCarritoYsusObjetosEnHTML() {
             Ir al finalizar
           </button>
           <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Pago</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  ...${textoTotalCompra()}
+                  ${textoTotalCompra()}
                   <div class="mb-3">
-      <label for="textEmail" class="form-label tituloEmail">Ingrese su email</label>
+      <label for="textEmail" class="form-label tituloEmail">Ingrese su email (debe estar en verde para ser valido)</label>
       <input type="email" class="form-control" id="textEmail" placeholder="name@example.com">
     </div>
     <div class="mb-3">
@@ -345,8 +345,8 @@ function representarCarritoYsusObjetosEnHTML() {
     </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" id="btnVolver" data-dismiss="modal">Volver</button>
-                  <button type="button" class="btn btn-primary" id="btnFinalizar">Finalizar</button>
+                  <button type="button" class="btn btn-secondary" id="btnVolver" data-bs-dismiss="modal">Volver</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnFinalizar">Finalizar</button>
                 </div>
               </div>
             </div>
@@ -410,6 +410,7 @@ function representarCarritoYsusObjetosEnHTML() {
       }
     });
   });
+  salirModal();
 }
 function agregarObjetoAlCarrito(nombreNuevo, cantidad) {
   // Si no hay nada lo agrego de una
@@ -433,4 +434,18 @@ function agregarObjetoAlCarrito(nombreNuevo, cantidad) {
       objeto.cantidad = parseInt(objeto.cantidad) + parseInt(cantidad);
     }
   }
+}
+
+function salirModal() {
+const btn = document.getElementById("btnFinalizar");
+const textEmail = document.getElementById("textEmail");
+const textComentario = document.getElementById("textComentario");
+btn.addEventListener("click", ()=>{
+cartelEnHTML("success", `Gracias por su compra, se envio un mail a ${textEmail.value} tendremos en cuenta el comentario "${textComentario.value}"`);
+//falta refrescar la pagina.
+Carrito.splice(0, Carrito.length);
+actualizarLocalStorage();
+let papaLugarContenido = document.getElementById("este");
+papaLugarContenido.remove();
+})
 }
