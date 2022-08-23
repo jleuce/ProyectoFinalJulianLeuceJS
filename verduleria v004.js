@@ -235,26 +235,29 @@ function textoTotalCompra() {
   return `Total a pagar:$ ${total}`;
 }
 function darFuncionamientoModal() {
-  const btnFinalizar = document.querySelector("#btnFinalizar");
-  const btnVolver = document.querySelector("#btnVolver");
   const textEmail = document.querySelector("#textEmail");
   const textComentario = document.querySelector("#textComentario");
   const tituloEmail = document.querySelector(".tituloEmail");
+  const btnFinalizar = document.getElementById("btnFinalizar");
+
+  btnFinalizar.addEventListener("click", ()=>{
+  cartelEnHTML("success", `Gracias por su compra, se envio un mail a ${textEmail.value} tendremos en cuenta el comentario "${textComentario.value}"`);
+  //falta refrescar la pagina.
+  Carrito.splice(0, Carrito.length);
+  actualizarLocalStorage();
+  let papaLugarContenido = document.getElementById("este");
+  papaLugarContenido.remove();
+  })
+
   //Validar un email que tenga @ y .com si no es valido pinto de rojo sino verde
   textEmail.addEventListener("input", () => {
     if (
       /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(textEmail.value)
     ) {
-      tituloEmail.style.backgroundColor = "rgba(0,255,0,0.5)";
+      textEmail.style.backgroundColor = "rgba(0,255,0,0.5)";
     } else {
-      tituloEmail.style.backgroundColor = "rgba(255,0,0,0.5)";
+      textEmail.style.backgroundColor = "rgba(255,0,0,0.5)";
     }
-  });
-  btnFinalizar.addEventListener("click", () => {
-    console.log(btnFinalizar);
-  });
-  btnVolver.addEventListener("click", () => {
-    console.log(btnVolver);
   });
 }
 function actualizarLocalStorage() {
@@ -282,7 +285,7 @@ function cartelEnHTML(tipo, mensaje) {
     icon: tipo,
     title: mensaje,
     showConfirmButton: false,
-    timer: 1500,
+    timer: 3500,
   });
 }
 function cargarInicioAlHTML(array) {
@@ -320,7 +323,7 @@ function representarCarritoYsusObjetosEnHTML() {
                   <h5 class="card-title elegidos">Mis elegidos</h5>
                 </div>
                 <h5 class="card-title totalLista" id="totalCarrito">Total $0</h5>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="botonIrAlFinalizar">
             Ir al finalizar
           </button>
           <!-- Modal -->
@@ -334,8 +337,9 @@ function representarCarritoYsusObjetosEnHTML() {
                   </button>
                 </div>
                 <div class="modal-body">
-                  ${textoTotalCompra()}
-                  <div class="mb-3">
+                <div class="mb-3">
+      <label for="aPagar" class="form-label tituloEmail" id ="totalModal">${textoTotalCompra()}</label> 
+
       <label for="textEmail" class="form-label tituloEmail">Ingrese su email (debe estar en verde para ser valido)</label>
       <input type="email" class="form-control" id="textEmail" placeholder="name@example.com">
     </div>
@@ -410,7 +414,13 @@ function representarCarritoYsusObjetosEnHTML() {
       }
     });
   });
-  salirModal();
+  // BOTON "IR A FINALIZAR" LA COMPRA
+  const btn = document.getElementById("botonIrAlFinalizar");
+  btn.addEventListener("click", ()=>{
+    document.getElementById(
+      "totalModal"
+    ).innerText = textoTotalCompra()//.innerHTML = `Total $${textoTotalCompra()}`;
+    })
 }
 function agregarObjetoAlCarrito(nombreNuevo, cantidad) {
   // Si no hay nada lo agrego de una
@@ -436,16 +446,3 @@ function agregarObjetoAlCarrito(nombreNuevo, cantidad) {
   }
 }
 
-function salirModal() {
-const btn = document.getElementById("btnFinalizar");
-const textEmail = document.getElementById("textEmail");
-const textComentario = document.getElementById("textComentario");
-btn.addEventListener("click", ()=>{
-cartelEnHTML("success", `Gracias por su compra, se envio un mail a ${textEmail.value} tendremos en cuenta el comentario "${textComentario.value}"`);
-//falta refrescar la pagina.
-Carrito.splice(0, Carrito.length);
-actualizarLocalStorage();
-let papaLugarContenido = document.getElementById("este");
-papaLugarContenido.remove();
-})
-}
